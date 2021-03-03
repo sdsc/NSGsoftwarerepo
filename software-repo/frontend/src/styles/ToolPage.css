@@ -1,0 +1,36 @@
+.tool-page-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tool-page-child {
+  align-self: center;
+}
+
+.details-container {
+  padding-bottom: 100px;
+  min-width: 950px;
+}
+
+.tool-page-container {
+  margin-top: 20px;
+}
+
+.tool-page-header {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.in-n-out {
+  display: flex;
+  justify-content: space-between;
+}
+
+.message {
+  width: 450px;
+}
+
+.in-out-arrow {
+  align-self: center;
+}

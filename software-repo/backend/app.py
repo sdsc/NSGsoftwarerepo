@@ -1,0 +1,23 @@
+from flask import Flask, jsonify
+from listTools import get_tool_list
+from flask_cors import CORS
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+
+app = Flask(__name__)
+CORS(app)
+limiter = Limiter(
+    app,
+    key_func=get_remote_address,
+)
+
+
+@app.route("/")
+def home():
+    return "NSG Software Repo API"
+
+
+@app.route("/tools", methods=["GET"])
+@limiter.limit("50/minute")
+def get_tools():
+    return jsonify(get_tool_list())

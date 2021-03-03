@@ -1,0 +1,23 @@
+.tool-list {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.list {
+  /* display: flex;
+  justify-content:space-evenly;
+  flex-wrap: wrap; */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  row-gap: 2rem;
+  margin: 10px 0px 0px 10px;
+}
+
+
+.error-message {
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+}

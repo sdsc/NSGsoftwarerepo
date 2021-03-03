@@ -1,0 +1,9 @@
+.no-match {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.no-match-message {
+  align-self: center;
+}

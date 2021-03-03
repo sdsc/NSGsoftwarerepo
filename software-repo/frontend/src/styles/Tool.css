@@ -1,0 +1,30 @@
+.tool {
+  width: 350px;
+  /* margin: 10px 10px 10px 10px; */
+  place-self: center;
+
+}
+
+.tool-text {
+  white-space: wrap;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  height: 150px;
+}
+
+.tool-header {
+  height: 75px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-left: 2%;
+}
+
+.card-repo {
+  font-size: smaller;
+  color: #4a4a4a;
+}
+
+.title:not(.is-spaced) + .card-repo {
+  margin-top: -1.25rem;
+}
