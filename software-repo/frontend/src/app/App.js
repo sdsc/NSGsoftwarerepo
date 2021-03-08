@@ -10,7 +10,7 @@ import ToolPage from '../features/ToolPage/ToolPage'
 import NoMatch from '../components/NoMatch'
 function App () {
   return (
-    <Router >
+    <Router basename="/NSGSoftwareRepo" >
       <div className="App">
         <Switch>
           <Route path="/tool/:id" component={ToolPage}/>
