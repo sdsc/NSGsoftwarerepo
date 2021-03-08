@@ -23,7 +23,7 @@ def get_tool_list():
         "os_auth_url": os.getenv("OS_AUTH_URL"),
     }
 
-    container = "share_demo"
+    container = os.getenv("CONTAINER_NAME")
     objects = []
     header_data = {}
     formatted_objects = []
