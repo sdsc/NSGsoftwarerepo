@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-cloud_url_refix = "https://object.cloud.sdsc.edu:443/v1/"
+cloud_url_prefix = "https://object.cloud.sdsc.edu:443/v1/"
 
 
 def get_tool_list():
@@ -41,10 +41,10 @@ def get_tool_list():
             for stat_res in stats_it:
                 if stat_res["success"]:
                     formatted_object = {}
+                    title = stat_res["headers"]["x-object-meta-title"]
+                    title_id = title.lower().replace(" ", "_")
                     header_data[stat_res["object"]] = stat_res["headers"]
-                    formatted_object["title"] = stat_res["headers"][
-                        "x-object-meta-title"
-                    ]
+                    formatted_object["title"] = title
                     formatted_object["description"] = stat_res["headers"][
                         "x-object-meta-description"
                     ]
@@ -54,7 +54,7 @@ def get_tool_list():
                     formatted_object["version"] = stat_res["headers"][
                         "x-object-meta-version"
                     ]
-                    formatted_object["id"] = stat_res["headers"]["etag"]
+                    formatted_object["id"] = title_id
                     formatted_object["content-type"] = stat_res["headers"][
                         "content-type"
                     ]
@@ -63,7 +63,7 @@ def get_tool_list():
                     file = stat_res["object"]
                     formatted_object[
                         "download_link"
-                    ] = f"{cloud_url_refix}{account}/{container}/{file}"
+                    ] = f"{cloud_url_prefix}{account}/{container}/{file}"
                     formatted_objects.append(formatted_object)
                 else:
                     logger.error("Failed to retrieve stats for %s" % stat_res["object"])
