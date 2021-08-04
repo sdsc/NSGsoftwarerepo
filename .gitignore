@@ -1,18 +1,21 @@
 #Misc
-.DS_STORE
-
+.DS_Store
 #VS Code
 .vscode
 
 # Repo Flask API
-/software-repo/*/.env
-/software-repo/*/*.csv
-/software-repo/backend/Tools
+*/*.env
+*/*.csv
+/backend/Tools
 # Repo Front End
-/software-repo/frontend/node_modules
-/software-repo/frontend/build
-/node_modules
-/.pnp
+node_modules
+build
+db.json
+.pnp
 .pnp.js
-/software-repo/frontend/db.json
 .eslintcache
+__pycache__
+data.json
+.env
+*.csv
+Tools

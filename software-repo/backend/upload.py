@@ -1,10 +1,11 @@
 import logging
 import csv
 import os
+import json
 from swiftclient.service import SwiftService, SwiftError
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(override=True)
 
 
 def get_files():
@@ -16,13 +17,22 @@ def get_files():
         return myDict
 
 
+def load_data():
+
+    json_file = open("data.json", "r")
+    json_dict = json.load(json_file)
+    json_file.close()
+
+    return json_dict
+
+
 logging.basicConfig(level=logging.ERROR)
 logging.getLogger("requests").setLevel(logging.CRITICAL)
 logging.getLogger("swiftclient").setLevel(logging.CRITICAL)
 logger = logging.getLogger(__name__)
 
 container = os.getenv("CONTAINER_NAME")
-filesToUpload = get_files()
+filesToUpload = load_data()
 
 opestack_cred = {
     "auth_version": os.getenv("ST_AUTH_VERSION"),  # Should be '3'
@@ -39,16 +49,24 @@ errors = []
 with SwiftService(options=opestack_cred) as swift:
 
     try:
-        for file in filesToUpload:
+        for file in filesToUpload["tools"]:
+            print(f"Uploading {file['path_to_image']}....")
             for res in swift.upload(
                 container,
-                [file["file"]],
+                [file["path_to_image"]],
                 {
                     "meta": [
-                        f"title:{file['title']}",
-                        f"description:{file['description']}",
-                        f"url:{file['url']}",
-                        f"version:{file['version']}",
+                        f"name:{file['name']}",
+                        f"short_desc: {file['short_desc']}",
+                        f"desc: {file['desc']}",
+                        f"website: {file['website']}",
+                        f"version: {file['version']}",
+                        f"portal_instructions: {file['portal_instructions']}",
+                        f"portal_image_params: {file['portal_image_params']}",
+                        f"rest_api_command: {file['rest_api_command']}",
+                        f"rest_instructions: {file['rest_instructions']}",
+                        f"output: {file['output']}",
+                        f"data:{json.dumps(file['data'])}",
                     ]
                 },
             ):
