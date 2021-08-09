@@ -6,9 +6,7 @@ const ArgDesc = (props) => {
   return (
     <label className="panel-block">
       <div className="arg-desc-container">
-        <p>{props.title}</p>
-        <p>{props.desc}</p>
-        <p>{props.example}</p>
+        <a style={{ textDecoration: 'none', color: 'black' }} href={props.source} target="_blank" rel="noreferrer">{props.name}</a>
       </div>
     </label>
   )
@@ -16,6 +14,7 @@ const ArgDesc = (props) => {
 
 const ArgBox = (props) => {
   const { title, data } = props
+  console.log(data)
   return (
     <article className={`argbox-container panel ${props.type}`}>
       <p className="panel-heading">
@@ -23,7 +22,7 @@ const ArgBox = (props) => {
       </p>
       {data.map(arg => {
         return (
-          <ArgDesc title={arg.title} key={title} desc={arg.desc} example={arg.example} />
+          <ArgDesc name={arg.name} source={arg.source} key={title} />
         )
       })}
     </article>
@@ -37,9 +36,8 @@ ArgBox.propTypes = {
 }
 
 ArgDesc.propTypes = {
-  title: PropTypes.string,
-  desc: PropTypes.string,
-  example: PropTypes.string
+  name: PropTypes.string,
+  source: PropTypes.string
 }
 
 export default ArgBox

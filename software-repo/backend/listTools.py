@@ -2,6 +2,7 @@ import logging
 from swiftclient.service import SwiftService, SwiftError
 import os
 from dotenv import load_dotenv
+import json
 
 load_dotenv(override=True)
 
@@ -47,7 +48,7 @@ def get_tool_list():
                     header_data[stat_res["object"]] = stat_res["headers"]
                     formatted_object["name"] = name
                     formatted_object["desc"] = stat_res["headers"]["x-object-meta-desc"]
-                    formatted_object["short-desc"] = stat_res["headers"][
+                    formatted_object["shortDesc"] = stat_res["headers"][
                         "x-object-meta-short-desc"
                     ]
                     formatted_object["website"] = stat_res["headers"][
@@ -56,15 +57,18 @@ def get_tool_list():
                     formatted_object["version"] = stat_res["headers"][
                         "x-object-meta-version"
                     ]
-                    formatted_object["portal-instructions"] = stat_res["headers"][
+                    formatted_object["portalInstructions"] = stat_res["headers"][
                         "x-object-meta-portal-instructions"
                     ]
-                    formatted_object["api-command"] = stat_res["headers"][
+                    formatted_object["apiCommand"] = stat_res["headers"][
                         "x-object-meta-rest-api-command"
                     ]
-                    formatted_object["rest-instructions"] = stat_res["headers"][
-                        "x-object-meta-rest-instructions"
+                    formatted_object["toolName"] = stat_res["headers"][
+                        "x-object-meta-tool-name"
                     ]
+                    formatted_object["data"] = json.loads(
+                        stat_res["headers"]["x-object-meta-data"]
+                    )
                     formatted_object["id"] = name_id
                     formatted_object["content-type"] = stat_res["headers"][
                         "content-type"
@@ -79,11 +83,11 @@ def get_tool_list():
                         "x-object-meta-portal-image-params"
                     ]
                     formatted_object[
-                        "portal-image-params"
+                        "portalImageParams"
                     ] = f"{cloud_url_prefix}{account}/{container}/{image_params}"
                     output = stat_res["headers"]["x-object-meta-output"]
                     formatted_object[
-                        "portal-output"
+                        "portalOutput"
                     ] = f"{cloud_url_prefix}{account}/{container}/{output}"
                     formatted_objects.append(formatted_object)
                 else:

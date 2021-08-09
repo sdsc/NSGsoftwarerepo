@@ -7,21 +7,22 @@ function Tool (props) {
   const { data } = props
   return (
     <div className="tool card">
-      <header className="tool-header card-header">
-        <p className="title is-6">{data.title}</p>
-        <a href={data.git_url} target="_blank" rel="noreferrer" className="card-repo">
-            {data.repo}
-            {data.version && <span className="tag is-light is-rounded">{data.version}</span>}
+      <header className="tool-header card-header" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Link to={`/tool/${data.id}`}>
+        <p className="title is-4">{data.name}  {data.version && <span className="tag is-light is-rounded">{data.version}</span>}</p>
+        </Link>
+        <a href={data.website} target="_blank" rel="noreferrer" className="card-repo">
+            {data.website}
         </a>
       </header>
       <div className="tool-content card-content">
-        <div className="tool-text content">
-            {data.description}
-        </div>
+        <Link style={{ color: 'black' }} to={`/tool/${data.id}`}>
+          <div className="tool-text content">
+              {data.shortDesc}
+          </div>
+        </Link>
       </div>
       <footer className="tool-buttons card-footer">
-        <Link className="card-footer-item" to={`/tool/${data.id}`}>View</Link>
-        <a href={data.download_link} download className="card-footer-item">Download</a>
       </footer>
     </div>
   )
@@ -29,13 +30,14 @@ function Tool (props) {
 
 Tool.propTypes = {
   data: PropTypes.shape({
-    title: PropTypes.string,
-    description: PropTypes.string,
+    name: PropTypes.string,
+    shortDesc: PropTypes.string,
     version: PropTypes.string,
     id: PropTypes.string,
     repo: PropTypes.string,
     git_url: PropTypes.url,
-    download_link: PropTypes.url
+    download_link: PropTypes.url,
+    website: PropTypes.url
   })
 }
 

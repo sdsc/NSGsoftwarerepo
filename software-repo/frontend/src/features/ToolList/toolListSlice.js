@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { getTools } from '../../api/openstackAPI'
-import gh from 'parse-github-url'
 export const fetchTools = createAsyncThunk(
   'tools/all',
   async (_, thunkAPI) => {
@@ -23,12 +22,8 @@ export const toolListSlice = createSlice({
     },
     [fetchTools.fulfilled]: (state, action) => {
       const data = action.payload.map(item => {
-        const github = gh(item.git_url)
         return {
-          ...item,
-          repo: github.repo,
-          owner: github.owner,
-          repoName: github.name
+          ...item
         }
       })
       state.tools = data

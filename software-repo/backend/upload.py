@@ -64,7 +64,7 @@ with SwiftService(options=opestack_cred) as swift:
                         f"portal_instructions: {file['portal_instructions']}",
                         f"portal_image_params: {file['portal_image_params']}",
                         f"rest_api_command: {file['rest_api_command']}",
-                        f"rest_instructions: {file['rest_instructions']}",
+                        f"tool_name: {file['tool_name']}",
                         f"output: {file['output']}",
                         f"data:{json.dumps(file['data'])}",
                     ]

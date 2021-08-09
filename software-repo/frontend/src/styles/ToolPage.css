@@ -4,6 +4,11 @@
   justify-content: center;
 }
 
+.tool-page-title-container {
+  display: flex;
+  margin-top: 0.5rem;
+}
+
 .tool-page-child {
   align-self: center;
 }
@@ -14,23 +19,29 @@
 }
 
 .tool-page-container {
-  margin-top: 20px;
+  padding-top: 20px;
 }
 
 .tool-page-header {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  padding-left: 25px;
 }
 
-.in-n-out {
-  display: flex;
-  justify-content: space-between;
-}
 
 .message {
   width: 450px;
 }
 
-.in-out-arrow {
-  align-self: center;
+.tool-name+ .tool-version {
+  margin-left: 1.25rem;
+}
+
+.tool-version {
+  margin-top: 0.5rem;
+}
+
+.portal-params-image {
+  width: 60%;
+  height: 60%;
 }
