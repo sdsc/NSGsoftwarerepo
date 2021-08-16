@@ -61,7 +61,6 @@ with SwiftService(options=opestack_cred) as swift:
                         f"desc: {file['desc']}",
                         f"website: {file['website']}",
                         f"version: {file['version']}",
-                        f"portal_instructions: {file['portal_instructions']}",
                         f"portal_image_params: {file['portal_image_params']}",
                         f"rest_api_command: {file['rest_api_command']}",
                         f"tool_name: {file['tool_name']}",

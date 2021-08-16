@@ -57,9 +57,6 @@ def get_tool_list():
                     formatted_object["version"] = stat_res["headers"][
                         "x-object-meta-version"
                     ]
-                    formatted_object["portalInstructions"] = stat_res["headers"][
-                        "x-object-meta-portal-instructions"
-                    ]
                     formatted_object["apiCommand"] = stat_res["headers"][
                         "x-object-meta-rest-api-command"
                     ]
