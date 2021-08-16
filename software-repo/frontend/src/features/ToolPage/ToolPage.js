@@ -54,6 +54,10 @@ function ToolPage (props) {
                       <div className="content">
                         <h1 className="title">Description</h1>
                         {tool.desc}
+                        {tool.website !== '' &&
+                          <div>
+                            Please visit <a href={tool.website} target="_blank" rel="noreferrer">{tool.website}</a> for source code and documentation
+                          </div>}
                       </div>
                     </section>
                     <div className="input-output" >
