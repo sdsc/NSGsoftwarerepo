@@ -64,7 +64,7 @@ function ToolPage (props) {
                       <section className="section">
                         <div className="content">
                           <h1 className="title">Inputs</h1>
-                          <p>Below are links to example input {'file(s)'} that can be used to with {tool.name}</p>
+                          <p>Below are links to example input {'file(s)'} that can be used with {tool.name}</p>
                           <div className="input-files">
                             <ArgBox type="is-info" title="Input Files" data={tool.data}/>
                           </div>
@@ -72,7 +72,7 @@ function ToolPage (props) {
                         <div className="content portal-params">
                           <h2 className='subtitle'>NSG Portal Parameters</h2>
                           <p>These are the required parameters need to run {tool.name} on the NSG Portal.</p>
-                          <img className='portal-params-image' src={tool.portalImageParams} alt="Portal Params"></img>
+                          {tool.portalImageParams !== null && <img className='portal-params-image' src={tool.portalImageParams} alt="Portal Params Placeholder"></img>}
                         </div>
                         <div className="content rest-params">
                           <h2>NSG REST API Parameters</h2>
