@@ -86,6 +86,12 @@ def get_tool_list():
                     formatted_object[
                         "portalOutput"
                     ] = f"{cloud_url_prefix}{account}/{container}/{output}"
+                    formatted_object["imageName"] = stat_res["headers"][
+                        "x-object-meta-image-name"
+                    ]
+                    formatted_object["extra"] = json.loads(
+                        stat_res["headers"]["x-object-meta-extra"]
+                    )
                     formatted_objects.append(formatted_object)
                 else:
                     logger.error("Failed to retrieve stats for %s" % stat_res["object"])

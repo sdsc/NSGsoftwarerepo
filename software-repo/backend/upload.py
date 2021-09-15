@@ -66,6 +66,8 @@ with SwiftService(options=opestack_cred) as swift:
                         f"tool_name: {file['tool_name']}",
                         f"output: {file['output']}",
                         f"data:{json.dumps(file['data'])}",
+                        f"image_name:{file['image_name']}",
+                        f"extra:{json.dumps(file['extra'])}",
                     ]
                 },
             ):

@@ -54,11 +54,19 @@ function ToolPage (props) {
                       <div className="content">
                         <h1 className="title">Description</h1>
                         {tool.desc}
+                        {tool.extra.length > 0 && tool.extra[0].type === 'desc' &&
+                          <ul>
+                            {tool.extra[0].value.map(elm => {
+                              return (
+                                <li key={elm.name}>{elm.name} {elm.version}</li>
+                              )
+                            }) }
+                          </ul>}
                         {tool.website !== '' &&
                           <div>
                             Please visit <a href={tool.website} target="_blank" rel="noreferrer">{tool.website}</a> for source code and documentation
                           </div>}
-                      </div>
+                    </div>
                     </section>
                     <div className="input-output" >
                       <section className="section">
@@ -99,6 +107,13 @@ function ToolPage (props) {
                         <div className="content">
                           <h1>Ouput</h1>
                           <ArgBox type="is-success" title={`Output Files From ${tool.name}`} data={output}/>
+                        </div>
+                      </section>
+                      <section className='section'>
+                        <div className="content">
+                          <h1>Singularity  Usage</h1>
+                          <p>Below is an example of how to run the Singularity container</p>
+                          <pre>$ singularity shell {tool.imageName}</pre>
                         </div>
                       </section>
                     </div>
