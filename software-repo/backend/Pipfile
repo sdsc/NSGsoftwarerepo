@@ -17,6 +17,7 @@ gunicorn = "*"
 supervisor = "*"
 python-dotenv = "*"
 black = "*"
+pymysql =  {version = "*", extras = ["rsa"]}
 
 [requires]
 python_version = "3.8"

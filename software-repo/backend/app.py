@@ -1,5 +1,5 @@
 from flask import Flask, jsonify
-from listTools import get_tool_list
+from listTools import get_tools_from_db
 from flask_cors import CORS
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
@@ -20,4 +20,4 @@ def home():
 @app.route("/tools", methods=["GET"])
 @limiter.limit("50/minute")
 def get_tools():
-    return jsonify(get_tool_list())
+    return jsonify(get_tools_from_db())

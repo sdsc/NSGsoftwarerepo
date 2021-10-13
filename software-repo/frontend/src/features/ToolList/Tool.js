@@ -8,7 +8,7 @@ function Tool (props) {
   return (
     <div className="tool card">
       <header className="tool-header card-header" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <Link to={`/tool/${data.id}`}>
+        <Link to={`/tool/${data.linkName}`}>
         <p className="title is-4">{data.name}  {data.version && <span className="tag is-light is-rounded">{data.version}</span>}</p>
         </Link>
         <a href={data.website} target="_blank" rel="noreferrer" className="card-repo">
@@ -16,7 +16,7 @@ function Tool (props) {
         </a>
       </header>
       <div className="tool-content card-content">
-        <Link style={{ color: 'black' }} to={`/tool/${data.id}`}>
+        <Link style={{ color: 'black' }} to={`/tool/${data.linkName}`}>
           <div className="tool-text content">
               {data.shortDesc}
           </div>
@@ -33,11 +33,9 @@ Tool.propTypes = {
     name: PropTypes.string,
     shortDesc: PropTypes.string,
     version: PropTypes.string,
-    id: PropTypes.string,
-    repo: PropTypes.string,
-    git_url: PropTypes.url,
-    download_link: PropTypes.url,
-    website: PropTypes.url
+    id: PropTypes.number,
+    website: PropTypes.url,
+    linkName: PropTypes.string
   })
 }
 

@@ -5,13 +5,17 @@ import { Link } from 'react-router-dom'
 import '../../styles/ToolPage.css'
 import ArgBox from '../../components/ArgBox'
 import Loader from '../../components/Loader'
-
+import ReactMarkdown from 'react-markdown'
 function ToolPage (props) {
   const { tools, loading } = useSelector((state) => state.toolList)
 
   const { params } = props.match
-  const tool = tools.find(elem => elem.id === params.id)
-  const output = tool !== undefined ? [{ name: `${tool.name} Example Output`, source: tool.portalOutput }] : []
+  const tool = tools.find(elem => elem.linkName === params.id)
+  console.log(tool)
+  console.log(params.id)
+  const command = tool !== undefined ? tool.commands[0] : null
+  const output = command !== null ? [{ name: `${tool.name} Example Output`, source: command.output }] : []
+  const input = command !== null ? [{ name: command.inputName, source: command.inputSource }] : []
   return (
    <div className="tool-page-container container">
       {loading === 'fetching' &&
@@ -53,15 +57,10 @@ function ToolPage (props) {
                     <section className=" section">
                       <div className="content">
                         <h1 className="title">Description</h1>
-                        {tool.desc}
-                        {tool.extra.length > 0 && tool.extra[0].type === 'desc' &&
-                          <ul>
-                            {tool.extra[0].value.map(elm => {
-                              return (
-                                <li key={elm.name}>{elm.name} {elm.version}</li>
-                              )
-                            }) }
-                          </ul>}
+                        {/* {tool.desc} */}
+                        <ReactMarkdown >
+                          {tool.desc}
+                        </ReactMarkdown>
                         {tool.website !== '' &&
                           <div>
                             Please visit <a href={tool.website} target="_blank" rel="noreferrer">{tool.website}</a> for source code and documentation
@@ -74,13 +73,13 @@ function ToolPage (props) {
                           <h1 className="title">Inputs</h1>
                           <p>Below are links to example input {'file(s)'} that can be used with {tool.name}</p>
                           <div className="input-files">
-                            <ArgBox type="is-info" title="Input Files" data={tool.data}/>
+                            <ArgBox type="is-info" title="Input Files" data={input}/>
                           </div>
                         </div>
                         <div className="content portal-params">
                           <h2 className='subtitle'>NSG Portal Parameters</h2>
                           <p>These are the required parameters need to run {tool.name} on the NSG Portal.</p>
-                          {tool.portalImageParams !== null && <img className='portal-params-image' src={tool.portalImageParams} alt="Portal Params Placeholder"></img>}
+                          {command.portal !== null && <img className='portal-params-image' src={command.portal} alt="Portal Params Placeholder"></img>}
                         </div>
                         <div className="content rest-params">
                           <h2>NSG REST API Parameters</h2>
@@ -99,7 +98,7 @@ function ToolPage (props) {
                           </ul>
                           <h3>Example REST API Usage </h3>
                           <pre>
-                            {tool.apiCommand}
+                            {command.api}
                           </pre>
                         </div>
                       </section>
@@ -113,7 +112,13 @@ function ToolPage (props) {
                         <div className="content">
                           <h1>Singularity  Usage</h1>
                           <p>Below is an example of how to run the Singularity container</p>
-                          <pre>$ singularity shell {tool.imageName}</pre>
+                          <pre>
+                          {command.singularity.split('\n').map((line, index) => {
+                            return (
+                              <p key={line}>{index + 1}. $ { line }</p>
+                            )
+                          })}
+                          </pre>
                         </div>
                       </section>
                     </div>
@@ -129,7 +134,6 @@ ToolPage.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string
-
     })
   })
 }

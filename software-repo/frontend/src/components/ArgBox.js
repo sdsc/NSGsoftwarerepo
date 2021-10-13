@@ -14,7 +14,6 @@ const ArgDesc = (props) => {
 
 const ArgBox = (props) => {
   const { title, data } = props
-  console.log(data)
   return (
     <article className={`argbox-container panel ${props.type}`}>
       <p className="panel-heading">
