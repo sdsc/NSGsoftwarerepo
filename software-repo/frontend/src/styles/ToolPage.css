@@ -45,3 +45,8 @@
   width: 60%;
   height: 60%;
 }
+
+.tool-selection {
+  display: flex;
+  flex-direction: row;
+}

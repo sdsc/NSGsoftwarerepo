@@ -46,6 +46,7 @@ def get_tools_from_db():
             commands.api AS 'api',
             commands.portal AS 'portal',
             commands.singularity AS 'singularity',
+            commands.name AS 'commandName',
             inputs. `name` AS 'inputName',
             inputs. `source` AS 'inputSource',
             outputs. `output` AS 'output'
