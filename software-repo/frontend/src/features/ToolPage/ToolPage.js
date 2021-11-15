@@ -81,7 +81,7 @@ function ToolPage (props) {
                         </div>
                         <div className="content portal-params">
                           <h2 className='subtitle'>NSG Portal Parameters</h2>
-                          <p>These are the required parameters need to run {command.commandName} on the NSG Portal.</p>
+                          <p>These are the required parameters need to needed to run the example input file {command.commandName} on the NSG Portal.</p>
                           {command.portal !== null && <img className='portal-params-image' src={command.portal} alt="Portal Params Placeholder"></img>}
                         </div>
                         <div className="content rest-params">
