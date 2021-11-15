@@ -6,7 +6,7 @@ import ReactMarkdown from 'react-markdown'
 import '../../styles/ToolPage.css'
 import ArgBox from '../../components/ArgBox'
 import Loader from '../../components/Loader'
-import SelectTool from './SelectTool'
+// import SelectTool from './SelectTool'
 function ToolPage (props) {
   const { tools, loading } = useSelector((state) => state.toolList)
 
@@ -70,10 +70,10 @@ function ToolPage (props) {
                       <section className="section">
                         <div className="content">
                           <h1 className="title">Inputs</h1>
-                          <div className="tool-selection">
+                          {/* <div className="tool-selection">
                             <p>Select Tool</p>
                             <SelectTool/>
-                          </div>
+                          </div> */}
                           <p>Below are links to example input {'file(s)'} that can be used with {command.commandName}</p>
                           <div className="input-files">
                             <ArgBox type="is-info" title="Input Files" data={input}/>
