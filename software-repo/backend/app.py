@@ -1,5 +1,6 @@
 from flask import Flask, jsonify
 from listTools import get_tools_from_db
+from scrape import scrape_tools
 from flask_cors import CORS
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
@@ -21,3 +22,9 @@ def home():
 @limiter.limit("50/minute")
 def get_tools():
     return jsonify(get_tools_from_db())
+
+
+@app.route("/portal_tools", methods=["GET"])
+@limiter.limit("100/minute")
+def portal_tools():
+    return scrape_tools()

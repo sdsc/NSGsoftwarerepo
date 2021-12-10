@@ -18,6 +18,7 @@ supervisor = "*"
 python-dotenv = "*"
 black = "*"
 pymysql =  {version = "*", extras = ["rsa"]}
+beautifulsoup4 = "*"
 
 [requires]
 python_version = "3.8"
