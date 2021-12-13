@@ -21,6 +21,3 @@ def scrape_tools():
     ]
 
     return {"tools": unique_tools + python_tool_list}
-
-
-print(scrape_tools())
