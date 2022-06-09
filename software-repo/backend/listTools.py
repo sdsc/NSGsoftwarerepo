@@ -60,7 +60,9 @@ def get_tools_from_db():
     for tool in tools:
         for key, value in groupby(commands, key_func):
             if tool["id"] == key:
-                tool["commands"] = list(value)
+                if "commands" not in tool:
+                    tool["commands"] = []
+                tool["commands"] = tool["commands"] + list(value)
         if "commands" not in tool:
             tool["commands"] = [
                 {
