@@ -10,7 +10,6 @@ export const getReadme = async (owner, repo) => {
     })
     const data = response.data
     const readmeRep = await axios.get(data.download_url)
-    console.log(readmeRep.data)
     return { hasReadme: true, readme: data.download_url, readmeString: readmeRep.data }
   } catch (error) {
     return { hasReadme: false }

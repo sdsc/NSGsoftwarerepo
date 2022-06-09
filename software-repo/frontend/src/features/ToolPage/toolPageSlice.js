@@ -1,32 +1,16 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { getReadme } from '../../api/githubAPI'
-
-export const fetchReadme = createAsyncThunk(
-  'readme',
-  async (args, thunkAPI) => {
-    const data = await getReadme(args.owner, args.repoName)
-    return data
-  }
-)
+import { createSlice } from '@reduxjs/toolkit'
 
 export const toolPageSlice = createSlice({
   name: 'toolPage',
   initialState: {
-    tool: null,
-    loading: 'init'
+    command: null
   },
   reducers: {
-  },
-  extraReducers: {
-    [fetchReadme.pending]: (state) => {
-      state.loading = 'fetching'
-    },
-    [fetchReadme.fulfilled]: (state, action) => {
-      const data = action.payload
-      state.tool = data
-      state.loading = 'idle'
+    setCommand: (state, action) => {
+      state.command = action.payload
     }
   }
 })
 
 export default toolPageSlice.reducer
+export const { setCommand } = toolPageSlice.actions

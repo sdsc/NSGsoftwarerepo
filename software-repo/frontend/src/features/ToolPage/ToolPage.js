@@ -1,26 +1,38 @@
-import React from 'react'
+// import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import '../../styles/ToolPage.css'
 import ArgBox from '../../components/ArgBox'
 import Loader from '../../components/Loader'
-// import SelectTool from './SelectTool'
+import Dropdown from '../../components/Dropdown'
+import { setCommand } from './toolPageSlice'
 function ToolPage (props) {
+  const dispatch = useDispatch()
   const { tools, loading } = useSelector((state) => state.toolList)
-
   const { params } = props.match
   const tool = tools.find(elem => elem.linkName === params.id)
-  const command = tool !== undefined ? tool.commands[0] : null
-  const output = command !== null ? [{ name: `${command.commandName} Example Output`, source: command.output }] : []
-  const input = command !== null ? [{ name: command.inputName, source: command.inputSource }] : []
+
+  useEffect(() => {
+    if (tool) {
+      dispatch(setCommand(tool.commands[0]))
+    }
+  }, [dispatch, loading]
+  )
+
+  const selectedCommand = useSelector((state) => state.toolPage.command)
+  const output = selectedCommand !== null ? [{ name: `${selectedCommand.commandName} Example Output`, source: selectedCommand.output }] : []
+  const input = selectedCommand !== null ? [{ name: selectedCommand.inputName, source: selectedCommand.inputSource }] : []
+  const numCommands = tool ? tool.commands.length : 0
+  const dispatchSelect = (command) => dispatch(setCommand(command))
   return (
    <div className="tool-page-container container">
-      {loading === 'fetching' &&
+      {(!tool) &&
         <Loader/>
       }
-     {loading === 'idle' &&
+     {tool && selectedCommand &&
            <div className="tool-page-content">
               <div className="tool-page-header">
                   <div className="tool-page-title">
@@ -66,23 +78,30 @@ function ToolPage (props) {
                           </div>}
                       </div>
                     </section>
+                    {numCommands > 1 && (
+                      <div className="tool-select">
+                         <section className="section">
+                           <div className="content">
+                              <h1 className="title">Tool Selection</h1>
+                              <p>Use the dropdown to View Examples For A Specific Python Tool</p>
+                              <Dropdown commands={tool.commands} select={dispatchSelect} selectedCommand={selectedCommand}/>
+                           </div>
+                         </section>
+                      </div>
+                    )}
                     <div className="input-output" >
                       <section className="section">
                         <div className="content">
                           <h1 className="title">Inputs</h1>
-                          {/* <div className="tool-selection">
-                            <p>Select Tool</p>
-                            <SelectTool/>
-                          </div> */}
-                          <p>Below are links to example input {'file(s)'} that can be used with {command.commandName}</p>
+                          <p>Below are links to example input {'file(s)'} that can be used with {selectedCommand.commandName}</p>
                           <div className="input-files">
                             <ArgBox type="is-info" title="Input Files" data={input}/>
                           </div>
                         </div>
                         <div className="content portal-params">
                           <h2 className='subtitle'>NSG Portal Parameters</h2>
-                          <p>These are the required parameters need to needed to run the example input file {command.commandName} on the NSG Portal.</p>
-                          {command.portal !== null && <img className='portal-params-image' src={command.portal} alt="Portal Params Placeholder"></img>}
+                          <p>These are the required parameters need to needed to run the example input file {selectedCommand.commandName} on the NSG Portal.</p>
+                          {selectedCommand.portal !== null && <img className='portal-params-image' src={selectedCommand.portal} alt="Portal Params Placeholder"></img>}
                         </div>
                         <div className="content rest-params">
                           <h2>NSG REST API Parameters</h2>
@@ -101,14 +120,14 @@ function ToolPage (props) {
                           </ul>
                           <h3>Example REST API Usage </h3>
                           <pre>
-                            {command.api}
+                            {selectedCommand.api}
                           </pre>
                         </div>
                       </section>
                       <section className='section'>
                         <div className="content">
                           <h1>Ouput</h1>
-                          <ArgBox type="is-success" title={`Output Files From ${command.commandName}`} data={output}/>
+                          <ArgBox type="is-success" title={`Output Files From ${selectedCommand.commandName}`} data={output}/>
                         </div>
                       </section>
                       <section className='section'>
@@ -116,7 +135,7 @@ function ToolPage (props) {
                           <h1>Singularity  Usage</h1>
                           <p>Below is an example of how to run the Singularity container</p>
                           <pre>
-                          {command.singularity.split('\n').map((line, index) => {
+                          {selectedCommand.singularity.split('\n').map((line, index) => {
                             return (
                               <p key={line}>{index + 1}. $ { line }</p>
                             )
