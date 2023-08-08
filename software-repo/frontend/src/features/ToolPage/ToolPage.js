@@ -83,7 +83,7 @@ function ToolPage (props) {
                          <section className="section">
                            <div className="content">
                               <h1 className="title">Tool Selection</h1>
-                              <p>Use the dropdown to View Examples For A Specific Python Tool</p>
+                              <p>Use the dropdown to view examples for a specific {tool.name} module</p>
                               <Dropdown commands={tool.commands} select={dispatchSelect} selectedCommand={selectedCommand}/>
                            </div>
                          </section>
@@ -111,7 +111,7 @@ function ToolPage (props) {
                             <li><code>$PASSWORD</code>: Your NSG Password</li>
                             <li><code>$KEY</code>: Appplication ID</li>
                             <li><code>$URL</code>: The job submission url is of the form <i>https://nsgr.sdsc.edu:8443/cipresrest/v1/job/username</i> </li>
-                            <li><code>tool</code>:The tool field identifies the tool to be used, in this case, <code>{tool.toolName}</code>. Job submissions must always include a tool. </li>
+                            <li><code>tool</code>:The tool field identifies the tool to be used. See the example below for the specifc tool name. Job submissions must always include a tool. </li>
                             <li><code>input.infile_</code>:This field identifies the main data file to be operated on. The input file should be of <code>zip</code> file format</li>
                           </ul>
                           <h3>Optional Parameters</h3>
